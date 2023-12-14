@@ -1,15 +1,14 @@
 import {Route, Routes} from "react-router-dom";
 import React from "react";
-import BoardList from "./routes/BoardList";
+import Board from "./routes/Board";
 import Home from "./routes/Home";
 
 function App() {
   return (
     <>
-      <h2>Content</h2>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/board" element={<BoardList />} />
+        <Route path="/" element={<Board />} />
+        <Route path="/board" element={<Board />} />
       </Routes>
     </>
   );
