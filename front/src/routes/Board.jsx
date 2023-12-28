@@ -60,7 +60,7 @@ const Title = styled.h1`
     color : grey;
     margin-bottom: 40px;
 `
-console.log(sample[0].title)
+
 const BoardContainer = styled.div`
     box-sizing: border-box;
     display: flex;
@@ -68,14 +68,13 @@ const BoardContainer = styled.div`
     justify-content: center;
     align-items: center;
     margin-top: 20px;;
-    
 `
 const Board = () =>{
     return(
         <>
             <BoardContainer>
                 <Title>게시판</Title>
-                <Search></Search>
+                <Search/>
                 <BoardList boardlist={sample}/>
             </BoardContainer>
         </>
