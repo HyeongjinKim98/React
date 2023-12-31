@@ -1,7 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import ReactQuill from "react-quill";
+import ReactQuill,{Quill} from "react-quill";
 import { useState } from "react";
+import TagsInput from "../components/create/TagInput";
+import ImageResize from 'quill-image-resize';
+
+Quill.register('modules/ImageResize',ImageResize);
 
 const WriteWrapper = styled.div`
     box-sizing: border-box;
@@ -25,10 +29,10 @@ const TitleInput = styled(Input)`
     font-size: 40px;
     border: none;
 `
-const TagInput = styled(Input)`
-    font-size: 20px;
-    border: none;
-`
+// const TagInput = styled(Input)`
+//     font-size: 20px;
+//     border: none;
+// `
 const SubmitWrapper = styled.div`
     gap : 6px;
     width : 1020px;
@@ -63,16 +67,26 @@ const SubmitBtn = styled(Btn)`
 `
 const Write = () => {
     const [title, setTitle] = useState("");
+    const [tagList, setTagList] = useState([]);
     const [content, setContent] = useState("");
     const modules = {
-        toolbar :[
-                ["image"],
-                [{header:[1,2,false]}],
-                ["bold", "italic", "underline", "strike","blockquote"],
+        toolbar :{
+            container: [
+                ["link","image"],
+                [{ header: [1,2,3, false] }],
+                ["bold", "italic", "underline", "strike", "blockquote"],
+                [
+                    {list:"ordered"}
+                ]
             ],
+        },
+        ImageResize :{
+            parchment : Quill.import('parchment')
+        }
     }
-    
+
     const formats = [
+        "link",
         "image",
         "header",
         "bold",
@@ -81,7 +95,13 @@ const Write = () => {
         "strike",
         "blockquote"
     ]
+
+    const handleTagListChange = (newList) =>{
+        setTagList(newList);
+    }
+    console.log(title)
     console.log(content)
+    console.log(tagList)
     return (
         <>
             <WriteWrapper>
@@ -89,18 +109,25 @@ const Write = () => {
                 <Wrapper>
                     <TitleInput
                         placeholder="제목을 입력해보세요"
-                        onChange={setTitle}/>
+                        onChange={(event)=>{
+                            setTitle(event.target.value)
+                        }}/>
                 </Wrapper>
                 <Wrapper>
-                    <TagInput
-                        placeholder="태그를 입력해보세요" />
+                    <TagsInput
+                        onTagListChange={handleTagListChange}/>
                 </Wrapper>
+                
                 <ReactQuill
-                    style = {{width : "1020px",height : "800px"}}
+                    style = {{width : "1020px",height : "1000px"}}
                     modules={modules}
                     formats={formats}
                     onChange={setContent}
-                    placeholder="글을 작성해주세요!">
+                    placeholder={`-학습 관련 질문을 남겨주세요!
+-남겨주세요 학습 관련 질문을!
+-학습 관련 질문을 남겨주세요!
+-남겨주세요 학습 관련 질문을!
+                    `}>
                 </ReactQuill>
                 <SubmitWrapper>
                     <CancelBtn>취소</CancelBtn>
