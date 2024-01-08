@@ -4,7 +4,8 @@ import ReactQuill,{Quill} from "react-quill";
 import { useState } from "react";
 import TagsInput from "../components/create/TagInput";
 import ImageResize from 'quill-image-resize';
-
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 Quill.register('modules/ImageResize',ImageResize);
 
 const WriteWrapper = styled.div`
@@ -66,9 +67,32 @@ const SubmitBtn = styled(Btn)`
     }
 `
 const Write = () => {
+    const navigate = useNavigate();
     const [title, setTitle] = useState("");
     const [tagList, setTagList] = useState([]);
     const [content, setContent] = useState("");
+
+    const navigateDetails = () =>{
+        const boardData = {
+            user: {
+                id: "김형진",
+            },
+            boardinfo: {
+                title: title,
+                createDate: "2024-01-06",
+                category: "Q&A",
+            },
+            contents: {
+                tagList: tagList,
+                content: content
+            }
+        }
+        navigate('/details',{
+            state: { value: boardData }
+        })
+        
+    }
+    
     const modules = {
         toolbar :{
             container: [
@@ -99,9 +123,6 @@ const Write = () => {
     const handleTagListChange = (newList) =>{
         setTagList(newList);
     }
-    console.log(title)
-    console.log(content)
-    console.log(tagList)
     return (
         <>
             <WriteWrapper>
@@ -130,8 +151,11 @@ const Write = () => {
                     `}>
                 </ReactQuill>
                 <SubmitWrapper>
-                    <CancelBtn>취소</CancelBtn>
-                    <SubmitBtn>등록</SubmitBtn>
+                    <Link to="/board">
+                        <CancelBtn>취소</CancelBtn>
+                    </Link>
+                    <SubmitBtn
+                        onClick={navigateDetails}>등록</SubmitBtn>
                 </SubmitWrapper>
             </WriteWrapper>
         </>

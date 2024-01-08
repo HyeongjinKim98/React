@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import Tag from './Tag';
 const ItemContainer = styled.div`
     width : 1020px;
@@ -7,6 +8,10 @@ const ItemContainer = styled.div`
     padding : 20px;
     border-bottom: 1px solid grey;
     background-color: white;
+    &:hover{
+        background-color: #d9d9d9;
+        cursor: pointer;
+    }
 `
 const Title = styled.div`
     color : #212529;
@@ -57,26 +62,28 @@ export default function BoardItem({
     }){
     return(
         <>
-            <ItemContainer>
-                <Title>{title}</Title>
-                <Content>{content}</Content>
-                <TagContainer>
-                    {tags.map((tag, idx) => (
-                        <Tag key={idx} name={tag} />
-                    ))}
-                </TagContainer>
-                <Container>
-                    <Left>
-                        <Writer>{writer_id}</Writer>
-                        <CreateTime>{createTime}</CreateTime>
-                    </Left>
-                    <Right>
-                        <RightItem>댓글 {comments.length} </RightItem>
-                        <RightItem>좋아요 {likes}</RightItem>
-                        <RightItem>조회수 {views}</RightItem>
-                    </Right>
-                </Container>
-            </ItemContainer>
+            <Link to="/details" style={{ textDecoration: "none" }}>
+                <ItemContainer>
+                    <Title>{title}</Title>
+                    <Content>{content}</Content>
+                    <TagContainer>
+                        {tags.map((tag, idx) => (
+                            <Tag key={idx} name={tag} />
+                        ))}
+                    </TagContainer>
+                    <Container>
+                        <Left>
+                            <Writer>{writer_id}</Writer>
+                            <CreateTime>{createTime}</CreateTime>
+                        </Left>
+                        <Right>
+                            <RightItem>댓글 {comments.length} </RightItem>
+                            <RightItem>좋아요 {likes}</RightItem>
+                            <RightItem>조회수 {views}</RightItem>
+                        </Right>
+                    </Container>
+                </ItemContainer>
+            </Link>
         </>
     )
 }
