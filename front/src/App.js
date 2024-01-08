@@ -14,7 +14,7 @@ function App() {
         <Route path="/" element={<Board />} />q
         <Route path="/board" element={<Board/>} />
         <Route path="/write" element={<Write/>} />
-        <Route path="/details" element={<Details />} />
+        <Route path="/details" element={<Details />}/>
       </Routes>
     </>
   );

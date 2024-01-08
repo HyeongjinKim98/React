@@ -14,7 +14,7 @@ const WriteWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;;
+    margin-top: 20px;
 `
 const Wrapper = styled.div`
     width: 1020px;
@@ -79,8 +79,10 @@ const Write = () => {
             },
             boardinfo: {
                 title: title,
-                createDate: "2024-01-06",
+                createTime: "2024-01-06",
                 category: "Q&A",
+                view : 3,
+                like : 5,
             },
             contents: {
                 tagList: tagList,
